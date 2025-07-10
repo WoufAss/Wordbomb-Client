@@ -37,7 +37,9 @@ public class SocketClient extends WebSocketClient {
             switch (packetId) {
                 case 10 -> {
                     System.out.println("[JOIN_ROOM] Received join confirmation.");
+                    client.sendChat("Joined game ! ");
 
+                    client.signalConnectionConfirmed();
                     send(new byte[]{10});
                 }
                 case 13 -> {
@@ -75,7 +77,8 @@ public class SocketClient extends WebSocketClient {
                 /* */
             }
             case "start" -> {
-
+                // Called : after countdown event
+                // Payload :
             }
             case "wrong" -> {
 
@@ -96,10 +99,14 @@ public class SocketClient extends WebSocketClient {
 
             }
             case "user-letter-healths" -> {
-
+                //
             }
             case "countdown" -> {
-
+                // Called : When starting the game
+                // Payload : time until game starts
+            }
+            case "dc" -> {
+                // disconnection
             }
             default -> {
                 // For debugging and finding useful events

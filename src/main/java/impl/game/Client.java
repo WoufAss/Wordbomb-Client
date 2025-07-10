@@ -28,7 +28,7 @@ public class Client {
 
 
     public Client(final String token){
-        this.authToken = token;
+        this.authToken = "Bearer " + token;
         this.httpClient = new OkHttpClient.Builder()
                 .connectTimeout(60, TimeUnit.SECONDS)
                 .readTimeout(60, TimeUnit.SECONDS)
@@ -59,14 +59,15 @@ public class Client {
         socketClient.connect();
     }
 
-    public void sendStartGame() {
+    public void startGame() {
         try {
             // Start packet
             final byte[] packet = {(byte) 0x0d, (byte) 0xa5, 0x73, 0x74, 0x61, 0x72, 0x74};
 
+            if (socketClient == null || socketClient.isClosed())
+                return;
             if (socketClient != null && socketClient.isOpen()) {
                 socketClient.send(packet);
-                System.out.println("Host sent START GAME command.");
             }
 
         } catch (Exception e) {
