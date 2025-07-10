@@ -30,7 +30,83 @@ public class SocketClient extends WebSocketClient {
 
     @Override
     public void onMessage(ByteBuffer bytes) {
-        /* */
+        final byte[] msg = bytes.array();
+        final int packetId = msg[0] & 0xFF;
+
+        try {
+            switch (packetId) {
+                case 10 -> {
+                    System.out.println("[JOIN_ROOM] Received join confirmation.");
+
+                    send(new byte[]{10});
+                }
+                case 13 -> {
+                    // Room data
+                    handleRoomData(msg);
+                }
+                case 14 -> {
+                    // Room state
+                }
+                case 15 -> {
+                    // Room state (2)
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void handleRoomData(byte[] msg) {
+        final MsgPackParser parser = new MsgPackParser();
+        final Object event = parser.parse(msg, 1);
+
+        Object payload = null;
+        if (parser.getBufferPosition() < msg.length) {
+            payload = parser.parse(msg, parser.getBufferPosition());
+        }
+
+        if (!(event instanceof String))
+            return;
+
+        // Events
+        final String eventMessage = (String) event;
+        switch (eventMessage) {
+            case "eliminated" -> {
+                /* */
+            }
+            case "start" -> {
+
+            }
+            case "wrong" -> {
+
+            }
+            case "correct" -> {
+
+            }
+            case "turn" -> {
+
+            }
+            case "winner" -> {
+
+            }
+            case "chat" -> {
+
+            }
+            case "hurt" -> {
+
+            }
+            case "user-letter-healths" -> {
+
+            }
+            case "countdown" -> {
+
+            }
+            default -> {
+                // For debugging and finding useful events
+                System.out.printf("[ROOM_DATA] Unknown Event: %s, Payload: %s\n", event, payload);
+            }
+        }
+
     }
 
     @Override

@@ -36,7 +36,7 @@ public class Main {
                     .collect(Collectors.toList());
 
             // Init game client
-            client = new Client(config.token);
+            client = new Client(config.token);;
 
 
         } catch (IOException e) {
@@ -47,5 +47,11 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         client.createGame();
+
+        final String roomID = client.getRoomID();
+        System.out.println("Created room with ID : " + roomID);
+
+        client.connect();
+        client.awaitConnection();
     }
 }
