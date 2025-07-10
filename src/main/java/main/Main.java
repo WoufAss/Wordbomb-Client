@@ -3,6 +3,7 @@ package main;
 import com.google.gson.Gson;
 import impl.config.Config;
 import impl.game.Client;
+import org.lwjgl.Version;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,6 +28,9 @@ public class Main {
 
 
     public static void main(String[] args) throws Exception {
+        System.out.println("LWJGL version : " + Version.getVersion());
+
+        if (true) return;
         client.createGame();
 
         final String roomID = client.getRoomID();
