@@ -1,6 +1,6 @@
-package impl.render;
+package impl.ui;
 
-abstract class Scene {
+public abstract class Scene {
     public abstract void init();
     public abstract void stop();
     public abstract void render();

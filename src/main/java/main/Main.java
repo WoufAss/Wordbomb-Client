@@ -4,9 +4,9 @@ import com.google.gson.Gson;
 import impl.config.Config;
 import impl.game.Client;
 import impl.render.Display;
-import impl.render.SceneManager;
-import impl.render.ShaderScene;
-import impl.util.Consts;
+import impl.ui.SceneManager;
+import impl.ui.ShaderScene;
+import impl.util.interfaces.Consts;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;

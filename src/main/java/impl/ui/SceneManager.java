@@ -1,4 +1,4 @@
-package impl.render;
+package impl.ui;
 
 public class SceneManager {
     private Scene currentScene;

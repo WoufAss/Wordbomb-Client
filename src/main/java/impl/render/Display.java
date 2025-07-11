@@ -1,6 +1,7 @@
 package impl.render;
 
-import impl.util.Consts;
+import impl.ui.Scene;
+import impl.util.interfaces.Consts;
 import lombok.Getter;
 import main.Main;
 import org.lwjgl.glfw.GLFWErrorCallback;
