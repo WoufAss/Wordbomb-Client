@@ -3,18 +3,21 @@ package main;
 import com.google.gson.Gson;
 import impl.config.Config;
 import impl.game.Client;
-import org.lwjgl.Version;
+import impl.render.Display;
+import impl.render.SceneManager;
+import impl.render.ShaderScene;
+import impl.util.Consts;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 
-public class Main {
+public class Main implements Consts {
     private final static Client client;
 
     // Files (config, words)
     public static Config config;
+    public static SceneManager sceneManager = new SceneManager();
+    private static Display display;
 
     static {
         //Config
@@ -23,12 +26,13 @@ public class Main {
         config = gson.fromJson(new InputStreamReader(configStream), Config.class);
 
         // Init game client
-        client = new Client(config.token);;
+        client = new Client(config.token);
+        display = new Display(800,600,new ShaderScene());
     }
 
 
     public static void main(String[] args) throws Exception {
-        System.out.println("LWJGL version : " + Version.getVersion());
+        display.run();
 
         if (true) return;
         client.createGame();
