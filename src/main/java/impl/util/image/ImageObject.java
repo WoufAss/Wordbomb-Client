@@ -1,5 +1,7 @@
 package impl.util.image;
 
+import impl.util.interfaces.Shaders;
+import impl.util.shader.ShaderProgram;
 import lombok.Getter;
 import main.Main;
 import org.lwjgl.opengl.EXTTextureFilterAnisotropic;
@@ -16,7 +18,10 @@ import java.nio.ByteBuffer;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
-public class ImageObject {
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
+import static org.lwjgl.opengl.GL11.glBindTexture;
+
+public class ImageObject implements Shaders {
 
     private BufferedImage img = null;
     @Getter
@@ -96,41 +101,27 @@ public class ImageObject {
         if(!isLoaded)
             return;
 
-//        enableTexture2D();
-//        enableBlend();
-//        glColor4f(1, 1, 1, 1);
-//
-//        GL11.glBindTexture(GL11.GL_TEXTURE_2D, textureID);
-//        Gui.drawModalRectWithCustomSizedTexture(x, y, 0, 0, width, height, width, height);
-//
-//        resetColor();
+        drawImg(x,y,width,height, new Color(255,255,255));
     }
 
     public final void drawImg(float x, float y) {
         if(!isLoaded)
             return;
 
-//        enableTexture2D();
-//        enableBlend();
-//        glColor4f(1, 1, 1, 1);
-//
-//        GL11.glBindTexture(GL11.GL_TEXTURE_2D, textureID);
-//        Gui.drawModalRectWithCustomSizedTexture(x, y, 0, 0, width, height, width, height);
-//
-//        resetColor();
+        drawImg(x,y,width,height, new Color(255,255,255));
     }
 
     public void drawImg(float x, float y, float width, float height, Color color) {
         if(!isLoaded)
             return;
-//
-//        enableTexture2D();
-//        enableBlend();
-//        glColor4f(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f, color.getAlpha() / 255f);
-//
-//        GL11.glBindTexture(GL11.GL_TEXTURE_2D, textureID);
-//        Gui.drawModalRectWithCustomSizedTexture(x, y, 0, 0, width, height, width, height);
-//
-//        resetColor();
+
+
+        GL11.glColor4f(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f, color.getAlpha() / 255f);
+        textureShader.bind();
+        glBindTexture(GL_TEXTURE_2D, textureID);
+        textureShader.setUniform("iChannel0",0);
+        textureShader.drawQuads(x,y,width,height);
+        textureShader.unbind();
+
     }
 }

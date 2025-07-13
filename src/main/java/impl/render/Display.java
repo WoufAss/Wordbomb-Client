@@ -2,6 +2,7 @@ package impl.render;
 
 import impl.ui.Scene;
 import impl.util.interfaces.Consts;
+import impl.util.shader.ShaderManager;
 import lombok.Getter;
 import main.Main;
 import org.lwjgl.glfw.GLFWErrorCallback;
@@ -24,6 +25,9 @@ public class Display implements Consts {
     private int width, height;
     private boolean vsync = true;
     private final Scene initScene;
+
+    //
+    private final ShaderManager shaderManager = new ShaderManager();
 
     public Display(final int width, final int height, final Scene initScene) {
         this.width = width;
@@ -110,6 +114,8 @@ public class Display implements Consts {
         GL.createCapabilities();
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+        shaderManager.compileShaders();
     }
 
     private void loop() {

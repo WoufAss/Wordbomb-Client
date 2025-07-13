@@ -13,11 +13,16 @@ import static org.lwjgl.opengl.GL20.*;
 
 public class ShaderProgram {
     private static final String VERTEX_SHADER = "vertex.vert";
-    private final UniformHandler uniformHandler;
-    private final int programId;
-    public final long startTime;
+    private final String fragmentShader;
+    private UniformHandler uniformHandler;
+    private int programId;
+    public long startTime;
 
     public ShaderProgram(final String fragmentShader) {
+        this.fragmentShader = fragmentShader;
+    }
+
+    public void compile() {
         this.programId = glCreateProgram();
 
         try {

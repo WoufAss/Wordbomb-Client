@@ -7,30 +7,22 @@ import impl.util.shader.ShaderProgram;
 import static org.lwjgl.opengl.GL20.*;
 
 public class TextureScene extends Scene implements Consts {
-    private int textureId;
-    private ShaderProgram shader;
+    final ImageObject img = new ImageObject("perla.png");
 
     @Override
     public void init() {
-        shader = new ShaderProgram("texture.glsl");
         createTexture();
     }
 
     private void createTexture() {
-        final ImageObject img = new ImageObject("perla.png");
         img.load();
-        textureId = img.getTextureID();
     }
 
 
     @Override
     public void render() {
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-
-        shader.bind();
-        glBindTexture(GL_TEXTURE_2D, textureId);
-        shader.setUniform("iChannel0",0);
-        shader.drawQuads(DISPLAY.getWidth()/2f - 150,DISPLAY.getHeight()/2f - 150,300,300);
+        img.drawImg(0,0,50,50);
     }
 
     @Override
