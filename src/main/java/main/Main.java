@@ -6,7 +6,9 @@ import impl.game.Client;
 import impl.render.Display;
 import impl.ui.SceneManager;
 import impl.ui.ShaderScene;
+import impl.ui.TextureScene;
 import impl.util.interfaces.Consts;
+import lombok.Getter;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -17,6 +19,7 @@ public class Main implements Consts {
     // Files (config, words)
     public static Config config;
     public static SceneManager sceneManager = new SceneManager();
+    @Getter
     private static Display display;
 
     static {
@@ -27,7 +30,7 @@ public class Main implements Consts {
 
         // Init game client
         client = new Client(config.token);
-        display = new Display(800,600,new ShaderScene());
+        display = new Display(800,600,new TextureScene());
     }
 
 

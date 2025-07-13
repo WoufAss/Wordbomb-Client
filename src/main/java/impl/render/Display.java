@@ -115,6 +115,14 @@ public class Display implements Consts {
     private void loop() {
         Main.sceneManager.setInitScene(initScene);
         while (!glfwWindowShouldClose(window)) {
+            glViewport(0, 0, width, height);
+
+            glMatrixMode(GL_PROJECTION);
+            glLoadIdentity();
+            glOrtho(0, width, height, 0, 1, -1);
+            glMatrixMode(GL_MODELVIEW);
+            glLoadIdentity();
+
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
             Main.sceneManager.render();

@@ -1,5 +1,10 @@
 package impl.util.shader;
 
+import impl.render.Display;
+import impl.util.RenderUtil;
+import impl.util.file.FileUtil;
+import main.Main;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.FloatBuffer;
@@ -35,8 +40,9 @@ public class ShaderProgram {
     }
 
     private InputStream getShaderStream(String shaderFile) throws IOException {
-        return mc.getResourceManager().getResource(new ResourceLocation("wouf/shaders/" + shaderFile)).getInputStream();
+        return this.getClass().getResourceAsStream("/shader/" + shaderFile);
     }
+
     private int loadShader(InputStream inputStream, int shaderType) {
         final int shaderId = glCreateShader(shaderType);
 
@@ -73,8 +79,6 @@ public class ShaderProgram {
     }
 
     public final void drawQuads(float x, float y, float width, float height) {
-        if (mc.gameSettings.ofFastRender) return;
-
         RenderUtil.render(GL_QUADS, () -> {
 
             glTexCoord2f(0, 1); glVertex2f(x, y);
@@ -86,8 +90,8 @@ public class ShaderProgram {
     }
 
     public final void drawQuads() {
-        final ScaledResolution sr = Minecraft.getMinecraft().getScaledResolution();
-        drawQuads(0, 0, (float) sr.getScaledWidth_double(), (float) sr.getScaledHeight_double());
+        final Display display = Main.getDisplay();
+        drawQuads(0, 0, (float) display.getWidth(), (float) display.getHeight());
     }
 
     public int getUniform(final String name) {

@@ -1,5 +1,7 @@
 package impl.util.shader;
 
+import impl.util.object.ObjectUtil;
+
 import java.nio.FloatBuffer;
 import java.util.HashMap;
 import java.util.Map;
