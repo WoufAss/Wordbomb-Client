@@ -30,7 +30,7 @@ public class TextureScene extends Scene implements Consts {
         shader.bind();
         glBindTexture(GL_TEXTURE_2D, textureId);
         shader.setUniform("iChannel0",0);
-        shader.drawQuads(0,0,100,50);
+        shader.drawQuads(DISPLAY.getWidth()/2f - 150,DISPLAY.getHeight()/2f - 150,300,300);
     }
 
     @Override
