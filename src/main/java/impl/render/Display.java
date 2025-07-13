@@ -26,6 +26,12 @@ public class Display implements Consts {
     private boolean vsync = true;
     private final Scene initScene;
 
+    //framerate
+    private double lastTime;
+    private int frames;
+    @Getter
+    private double fps;
+
     //
     private final ShaderManager shaderManager = new ShaderManager();
 
@@ -116,6 +122,7 @@ public class Display implements Consts {
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
         shaderManager.compileShaders();
+        lastTime = glfwGetTime();
     }
 
     private void loop() {
@@ -130,8 +137,19 @@ public class Display implements Consts {
             glLoadIdentity();
 
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+            glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
             Main.sceneManager.render();
+
+            double currentTime = glfwGetTime();
+            frames++;
+
+            if (currentTime - lastTime >= 1.0) {
+                fps = frames / (currentTime - lastTime);
+                System.out.println("FPS: " + (int) fps);
+                frames = 0;
+                lastTime = currentTime;
+            }
 
             glfwSwapBuffers(window);
             glfwPollEvents();
