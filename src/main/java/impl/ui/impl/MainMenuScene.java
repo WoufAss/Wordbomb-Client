@@ -17,7 +17,7 @@ public class MainMenuScene extends Scene implements Consts {
     @Override
     public void render() {
         backgroundImage.drawImg(0,0, DISPLAY.getWidth(), DISPLAY.getHeight());
-        Fonts.interBold.drawString("salut",10,10,10,-1);
+        Fonts.interBold.drawString("salut",10,10,100,-1);
     }
 
     @Override

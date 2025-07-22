@@ -102,6 +102,10 @@ public class FontAtlas implements Shaders {
         }
     }
 
+    public void init() {
+        tex.load();
+    }
+
     public void drawCenteredString(final String text, final float x, final float y, final float size, final int color) {
         drawString(text, x - getWidth(text, size) / 2, y, size, color);
     }

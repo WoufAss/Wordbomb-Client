@@ -1,6 +1,7 @@
 package impl.render;
 
 import impl.ui.Scene;
+import impl.util.font.Fonts;
 import impl.util.interfaces.Consts;
 import impl.util.shader.ShaderManager;
 import lombok.Getter;
@@ -10,6 +11,7 @@ import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.system.MemoryStack;
 
+import java.io.IOException;
 import java.nio.IntBuffer;
 
 import static org.lwjgl.system.MemoryStack.*;
@@ -38,13 +40,13 @@ public class Display implements Consts {
         this.initScene = initScene;
     }
 
-    public void run() {
+    public void run() throws IOException {
         init();
         loop();
         cleanup();
     }
 
-    private void init() {
+    private void init() throws IOException {
         GLFWErrorCallback.createPrint(System.err).set();
 
         if (!glfwInit()) {
@@ -118,7 +120,8 @@ public class Display implements Consts {
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-        SHADER_MANAGER.compileShaders();
+        ShaderManager.compileShaders();
+        Fonts.init();
         lastTime = glfwGetTime();
     }
 

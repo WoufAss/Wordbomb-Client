@@ -22,8 +22,6 @@ public class Main implements Consts {
     public static Config config;
     public static SceneManager sceneManager = new SceneManager();
     @Getter
-    private static final ShaderManager shaderManager = new ShaderManager();
-    @Getter
     private static Display display;
 
     static {
@@ -39,7 +37,6 @@ public class Main implements Consts {
 
 
     public static void main(String[] args) throws Exception {
-        Fonts.init();
         display.run();
 
         if (true) return;

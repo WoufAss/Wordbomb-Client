@@ -29,22 +29,23 @@ public class Fonts {
     public static FontAtlas kalingab;
 
     public static void init() throws IOException {
-        volteSemiBold = new FontAtlas("volte-semibold");
+//        volteSemiBold = new FontAtlas("volte-semibold");
         interBold = new FontAtlas("inter-bold");
-        interRegular = new FontAtlas("inter-regular");
-        openSansRegular = new FontAtlas("opensans-regular");
-        openSansMedium = new FontAtlas("opensans-medium");
-        openSansBold = new FontAtlas("opensans-bold");
-        sanFrancisco = new FontAtlas("sansfransisco");
-        robotoRegular = new FontAtlas("roboto-regular");
-        robotoMedium = new FontAtlas("roboto-medium");
-        robotoBold = new FontAtlas("roboto-bold");
-        minecraft = new FontAtlas("minecraft-regular");
-        mojang = new FontAtlas("mojang-regular");
-        genshin = new FontAtlas("genshin");
-        nunito = new FontAtlas("nunito");
-        greycliff = new FontAtlas("greycliff");
-        tahoma = new FontAtlas("tahoma");
-        kalingab = new FontAtlas("kalingab");
+//        interRegular = new FontAtlas("inter-regular");
+//        openSansRegular = new FontAtlas("opensans-regular");
+//        openSansMedium = new FontAtlas("opensans-medium");
+//        openSansBold = new FontAtlas("opensans-bold");
+//        sanFrancisco = new FontAtlas("sansfransisco");
+//        robotoRegular = new FontAtlas("roboto-regular");
+//        robotoMedium = new FontAtlas("roboto-medium");
+//        robotoBold = new FontAtlas("roboto-bold");
+//        minecraft = new FontAtlas("minecraft-regular");
+//        mojang = new FontAtlas("mojang-regular");
+//        genshin = new FontAtlas("genshin");
+//        nunito = new FontAtlas("nunito");
+//        greycliff = new FontAtlas("greycliff");
+//        tahoma = new FontAtlas("tahoma");
+//        kalingab = new FontAtlas("kalingab");
+        interBold.init();
     }
 }

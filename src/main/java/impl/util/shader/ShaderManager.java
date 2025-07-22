@@ -8,7 +8,7 @@ public class ShaderManager {
         put("msdf", new ShaderProgram("msdf.fsh"));
     }};
 
-    public void compileShaders() {
+    public static void compileShaders() {
         for(ShaderProgram shader : shaders.values()){
             shader.compile();
         }
