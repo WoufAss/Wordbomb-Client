@@ -1,7 +1,6 @@
 package impl.util.image;
 
 import impl.util.interfaces.Shaders;
-import impl.util.shader.ShaderProgram;
 import lombok.Getter;
 import main.Main;
 import org.lwjgl.opengl.EXTTextureFilterAnisotropic;
@@ -16,7 +15,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.util.Objects;
-import java.util.concurrent.CompletableFuture;
 
 import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
 import static org.lwjgl.opengl.GL11.glBindTexture;
@@ -33,6 +31,10 @@ public class ImageObject implements Shaders {
 
     public ImageObject(final String imageName) {
         this.inputStream = Main.class.getResourceAsStream("/images/" + imageName);
+    }
+
+    public ImageObject(final InputStream imageStream) {
+        this.inputStream = imageStream;
     }
 
     public final void load() {

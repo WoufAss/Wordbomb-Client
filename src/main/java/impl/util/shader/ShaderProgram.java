@@ -15,6 +15,7 @@ public class ShaderProgram {
     private static final String VERTEX_SHADER = "vertex.vert";
     private final String fragmentShader;
     private UniformHandler uniformHandler;
+    private boolean compiled;
     private int programId;
     public long startTime;
 
@@ -35,6 +36,7 @@ public class ShaderProgram {
 
             glLinkProgram(programId);
             validateProgram();
+            compiled = true;
 
         } catch (IOException e) {
             throw new RuntimeException("Error while loading shader files.", e);
@@ -74,6 +76,8 @@ public class ShaderProgram {
     }
 
     public final void setUniform(String name, Object... obj){
+        if (!compiled) return;
+
         final Object value = obj[0];
         switch (value){
             case Integer _ -> uniformHandler.setUniformInteger(name, obj);

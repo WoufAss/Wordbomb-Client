@@ -12,9 +12,17 @@ public class Room {
     @SerializedName("metadata")
     private Metadata metadata;
     @SerializedName("createdAt")
-    private Instant createdAt;
+    private String createdAt;
+    @SerializedName("clients")
+    private int clients;
+    @SerializedName("locked")
+    private boolean locked;
+    @SerializedName("private")
+    private boolean isPrivate;
 
     public Room(String roomId) {
         this.roomId = roomId;
     }
+
+    public Room() {}
 }

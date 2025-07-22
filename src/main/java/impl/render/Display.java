@@ -32,9 +32,6 @@ public class Display implements Consts {
     @Getter
     private double fps;
 
-    //
-    private final ShaderManager shaderManager = new ShaderManager();
-
     public Display(final int width, final int height, final Scene initScene) {
         this.width = width;
         this.height = height;
@@ -121,7 +118,7 @@ public class Display implements Consts {
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-        shaderManager.compileShaders();
+        SHADER_MANAGER.compileShaders();
         lastTime = glfwGetTime();
     }
 
@@ -146,7 +143,6 @@ public class Display implements Consts {
 
             if (currentTime - lastTime >= 1.0) {
                 fps = frames / (currentTime - lastTime);
-                System.out.println("FPS: " + (int) fps);
                 frames = 0;
                 lastTime = currentTime;
             }

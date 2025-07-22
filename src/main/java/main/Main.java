@@ -5,20 +5,24 @@ import impl.config.Config;
 import impl.game.Client;
 import impl.render.Display;
 import impl.ui.SceneManager;
-import impl.ui.ShaderScene;
-import impl.ui.TextureScene;
+import impl.ui.impl.MainMenuScene;
+import impl.util.font.Fonts;
 import impl.util.interfaces.Consts;
+import impl.util.shader.ShaderManager;
 import lombok.Getter;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class Main implements Consts {
+    @Getter
     private final static Client client;
 
     // Files (config, words)
     public static Config config;
     public static SceneManager sceneManager = new SceneManager();
+    @Getter
+    private static final ShaderManager shaderManager = new ShaderManager();
     @Getter
     private static Display display;
 
@@ -30,11 +34,12 @@ public class Main implements Consts {
 
         // Init game client
         client = new Client(config.token);
-        display = new Display(800,600,new TextureScene());
+        display = new Display(800,600,new MainMenuScene());
     }
 
 
     public static void main(String[] args) throws Exception {
+        Fonts.init();
         display.run();
 
         if (true) return;
