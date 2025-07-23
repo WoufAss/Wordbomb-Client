@@ -1,7 +1,9 @@
 package impl.util.font;
 
 import com.google.gson.JsonObject;
+import lombok.Getter;
 
+@Getter
 public class FontMetrics {
 
     private int emSize;
@@ -32,29 +34,5 @@ public class FontMetrics {
         metrics.underlineThickness = object.get("underlineThickness").getAsFloat();
 
         return metrics;
-    }
-
-    public final int getEmSize() {
-        return this.emSize;
-    }
-
-    public final float getLineHeight() {
-        return this.lineHeight;
-    }
-
-    public final float getAscender() {
-        return this.ascender;
-    }
-
-    public final float getDescender() {
-        return this.descender;
-    }
-
-    public final float getUnderlineY() {
-        return this.underlineY;
-    }
-
-    public final float getUnderlineThickness() {
-        return this.underlineThickness;
     }
 }

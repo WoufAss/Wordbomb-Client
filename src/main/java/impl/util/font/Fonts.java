@@ -1,51 +1,41 @@
 package impl.util.font;
 
 
-import impl.util.shader.ShaderProgram;
-
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Fonts {
-    //Shader
-    public static final ShaderProgram msdfShader = new ShaderProgram("msdf.fsh");
+    //List
+    private static final List<FontAtlas> fonts = new ArrayList<>();
 
     //Fonts
-    public static FontAtlas volteSemiBold;
-    public static FontAtlas interRegular;
-    public static FontAtlas interBold;
-    public static FontAtlas openSansRegular;
-    public static FontAtlas openSansMedium;
-    public static FontAtlas openSansBold;
-    public static FontAtlas sanFrancisco;
-    public static FontAtlas robotoRegular;
-    public static FontAtlas robotoMedium;
-    public static FontAtlas robotoBold;
-    public static FontAtlas minecraft;
-    public static FontAtlas mojang;
-    public static FontAtlas genshin;
-    public static FontAtlas nunito;
-    public static FontAtlas greycliff;
-    public static FontAtlas tahoma;
-    public static FontAtlas kalingab;
+    public static final FontAtlas volteSemiBold = register(new FontAtlas("volte-semibold"));
+    public static final FontAtlas interRegular = register(new FontAtlas("inter-regular"));
+    public static final FontAtlas interBold = register(new FontAtlas("inter-bold"));
+    public static final FontAtlas openSansRegular = register(new FontAtlas("opensans-regular"));
+    public static final FontAtlas openSansMedium = register(new FontAtlas("opensans-medium"));
+    public static final FontAtlas openSansBold = register(new FontAtlas("opensans-bold"));
+    public static final FontAtlas sanFrancisco = register(new FontAtlas("sansfransisco"));
+    public static final FontAtlas robotoRegular = register(new FontAtlas("roboto-regular"));
+    public static final FontAtlas robotoMedium = register(new FontAtlas("roboto-medium"));
+    public static final FontAtlas robotoBold = register(new FontAtlas("roboto-bold"));
+    public static final FontAtlas minecraft = register(new FontAtlas("minecraft-regular"));
+    public static final FontAtlas mojang = register(new FontAtlas("mojang-regular"));
+    public static final FontAtlas genshin = register(new FontAtlas("genshin"));
+    public static final FontAtlas nunito = register(new FontAtlas("nunito"));
+    public static final FontAtlas greycliff = register(new FontAtlas("greycliff"));
+    public static final FontAtlas tahoma = register(new FontAtlas("tahoma"));
+    public static final FontAtlas kalingab = register(new FontAtlas("kalingab"));
+
+    private static FontAtlas register(FontAtlas font) {
+        fonts.add(font);
+        return font;
+    }
 
     public static void init() throws IOException {
-//        volteSemiBold = new FontAtlas("volte-semibold");
-        interBold = new FontAtlas("inter-bold");
-//        interRegular = new FontAtlas("inter-regular");
-//        openSansRegular = new FontAtlas("opensans-regular");
-//        openSansMedium = new FontAtlas("opensans-medium");
-//        openSansBold = new FontAtlas("opensans-bold");
-//        sanFrancisco = new FontAtlas("sansfransisco");
-//        robotoRegular = new FontAtlas("roboto-regular");
-//        robotoMedium = new FontAtlas("roboto-medium");
-//        robotoBold = new FontAtlas("roboto-bold");
-//        minecraft = new FontAtlas("minecraft-regular");
-//        mojang = new FontAtlas("mojang-regular");
-//        genshin = new FontAtlas("genshin");
-//        nunito = new FontAtlas("nunito");
-//        greycliff = new FontAtlas("greycliff");
-//        tahoma = new FontAtlas("tahoma");
-//        kalingab = new FontAtlas("kalingab");
-        interBold.init();
+        for (FontAtlas font : fonts)
+            font.loadTexture();
     }
 }

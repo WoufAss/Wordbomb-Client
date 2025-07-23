@@ -5,7 +5,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import impl.util.font.glyph.Glyph;
 import impl.util.image.ImageObject;
-import impl.util.interfaces.Consts;
 import impl.util.interfaces.Shaders;
 import impl.util.render.SimpleRenderer;
 import lombok.Setter;
@@ -14,7 +13,6 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL30;
 
 import java.awt.*;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -102,7 +100,7 @@ public class FontAtlas implements Shaders {
         }
     }
 
-    public void init() {
+    public void loadTexture() {
         tex.load();
     }
 
@@ -120,9 +118,6 @@ public class FontAtlas implements Shaders {
         GL11.glPushMatrix();
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-//        GlStateManager.pushMatrix();
-//        GlStateManager.enableBlend();
-//        GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
         this.textX = x;
 
@@ -171,14 +166,11 @@ public class FontAtlas implements Shaders {
         }
 
         renderer.draw();
-        Fonts.msdfShader.unbind();
+        msdfShader.unbind();
 
         GL11.glDisable(GL11.GL_BLEND);
         GL11.glPopMatrix();
         GL11.glBindTexture(GL11.GL_TEXTURE_2D,0);
-//        GlStateManager.disableBlend();
-//        GlStateManager.popMatrix();
-//        GlStateManager.bindTexture(0);
     }
 
     private float visit(final SimpleRenderer renderer, final Glyph glyph, final float x, final float y, final float size, final int alpha) {
