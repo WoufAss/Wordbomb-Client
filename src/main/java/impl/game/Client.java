@@ -1,17 +1,22 @@
 package impl.game;
 
 import com.google.gson.Gson;
+import com.microsoft.playwright.*;
 import impl.network.SocketClient;
+import impl.struct.Room;
 import impl.struct.SessionInfo;
 import lombok.Getter;
 import okhttp3.*;
+import okhttp3.Request;
+import okhttp3.Response;
 
 import java.io.IOException;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 public class Client {
     // Network
@@ -126,5 +131,74 @@ public class Client {
 
     public final void stop() {
         /* */
+    }
+
+    public final CompletableFuture<List<Room>> getRoomList() {
+        final CompletableFuture<List<Room>> roomAsync = new CompletableFuture<>();
+
+        Executors.newCachedThreadPool().submit(() -> {
+            final List<Room> rooms = new ArrayList<>();
+
+            try (Playwright playwright = Playwright.create()) {
+                final Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(true));
+
+                final Page page = browser.newPage();
+                page.navigate("https://wordbomb.io");
+                page.waitForSelector(".lobby-list-item");
+
+                for (ElementHandle el : page.querySelectorAll(".lobby-list-item")) {
+                    final Room room = new Room();
+
+                    final boolean ranked = el.getAttribute("data-room-id").contains("ranked");
+                    if (ranked) {
+                        System.out.println("Ranked room, skipping...");
+                        continue;
+                    }
+
+                    final String name = el.querySelector(".lobby-list-name").innerText().trim();
+                    final String avatarUrl = el.querySelector(".lobby-list-avatar").getAttribute("src").trim();
+                    final String roomId = el.getAttribute("data-room-id");
+
+                    //roles
+                    List<ElementHandle> roles = el.querySelectorAll(".lobby-list-role");
+
+                    String playerCount = "";
+                    String gameMode = "";
+                    boolean started = false;
+                    boolean multiLang = false;
+
+                    for (ElementHandle role : roles) {
+                        String roleText = role.innerText().trim();
+
+                        if (roleText.matches("\\d+/\\d+")) {
+                            playerCount = roleText;
+                        } else if (roleText.equalsIgnoreCase("Started")) {
+                            started = true;
+                        } else if (roleText.contains("Multi Language")) {
+                            multiLang = true;
+                        }
+                        else if (!roleText.isEmpty()) {
+                            gameMode = roleText;
+                        }
+                    }
+
+                    // Set metadata
+                    room.setRoomId(roomId);
+                    room.setRoomName(name);
+                    room.setUserAvatar(avatarUrl);
+                    room.setPlayerCount(playerCount);
+                    room.setStarted(started);
+                    room.setMultiLang(multiLang);
+                    room.setGameMode(gameMode);
+
+                    rooms.add(room);
+                }
+            }
+
+            roomAsync.complete(rooms);
+        });
+
+
+        return roomAsync;
     }
 }

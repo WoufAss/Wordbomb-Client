@@ -156,10 +156,13 @@ public class FontAtlas implements Shaders {
                 }
                 i++;
             } else {
-                final Glyph glyph = this.glyphs[unicode];
-
-                if (glyph == null)
+                if (unicode < 0 || unicode >= glyphs.length)
                     continue;
+
+                final Glyph glyph = this.glyphs[unicode];
+//
+//                if (glyph == null)
+//                    continue;
 
                 textX += visit(renderer, glyph, textX, y, size, alpha);
             }

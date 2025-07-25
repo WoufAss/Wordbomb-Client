@@ -1,14 +1,13 @@
 package main;
 
 import com.google.gson.Gson;
+import com.microsoft.playwright.*;
 import impl.config.Config;
 import impl.game.Client;
 import impl.render.Display;
 import impl.ui.SceneManager;
 import impl.ui.impl.MainMenuScene;
-import impl.util.font.Fonts;
 import impl.util.interfaces.Consts;
-import impl.util.shader.ShaderManager;
 import lombok.Getter;
 
 import java.io.InputStream;
@@ -39,7 +38,6 @@ public class Main implements Consts {
     public static void main(String[] args) throws Exception {
         display.run();
 
-        if (true) return;
         client.createGame();
 
         final String roomID = client.getRoomID();
